@@ -64,6 +64,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>image.compressor</finalName>
 	</build>
 
 </project>

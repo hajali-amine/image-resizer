@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 
 @Service
 public class FileUploadServiceS3 implements FileUploadService {
-    @Value("${image.folder}")
+    @Value("${image.source.folder}")
     private String imageFolder;
 
     @Override
