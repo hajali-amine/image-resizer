@@ -1,5 +1,7 @@
 package devops.workshop.photocompressor.services;
 
+import com.amazonaws.AmazonServiceException;
+import devops.workshop.photocompressor.config.AwsConfig;
 import org.apache.commons.io.FilenameUtils;
 import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +22,9 @@ public class ImageServiceS3 implements ImageService {
     @Value("${image.size}")
     private Integer imageSize;
 
+    @Value("${aws.s3.bucket.name}")
+    private String s3BucketName;
+
     @Override
     public BufferedImage resizeImage(File sourceFile) throws IOException {
         // Read image as a buffered image
@@ -38,6 +43,13 @@ public class ImageServiceS3 implements ImageService {
         File newImageFile = path.toFile();
         ImageIO.write(resizedImage, "jpg", newImageFile);
         resizedImage.flush();
+        try {
+            AwsConfig.s3.putObject(s3BucketName, newFileName, newImageFile);
+        } catch (AmazonServiceException e) {
+            System.err.println(e.getErrorMessage());
+            System.exit(1);
+        }
+        System.out.println("Done!");
         return newImageFile;
     }
 
