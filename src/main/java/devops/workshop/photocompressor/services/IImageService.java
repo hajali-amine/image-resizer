@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public interface ImageService {
+public interface IImageService {
     BufferedImage resizeImage(File sourceFile) throws IOException;
     File uploadImage(String fileName, BufferedImage resizedImage) throws IOException;
     void clean(File sourceFile);

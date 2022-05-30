@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Service
-public class FileUploadServiceS3 implements FileUploadService {
+public class FileUploadServiceS3 implements IFileUploadService {
     @Value("${image.source.folder}")
     private String imageFolder;
 

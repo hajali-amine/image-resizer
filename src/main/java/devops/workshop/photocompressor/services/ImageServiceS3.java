@@ -15,7 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Service
-public class ImageServiceS3 implements ImageService {
+public class ImageServiceS3 implements IImageService {
     @Value("${image.resized.folder}")
     private String resizedImageFolder;
 
@@ -55,6 +55,6 @@ public class ImageServiceS3 implements ImageService {
 
     @Override
     public void clean(File sourceFile) {
-
+        sourceFile.delete();
     }
 }
