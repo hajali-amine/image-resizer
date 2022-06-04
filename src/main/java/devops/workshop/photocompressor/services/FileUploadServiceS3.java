@@ -25,6 +25,5 @@ public class FileUploadServiceS3 implements IFileUploadService {
     @Override
     public void clean(File sourceFile) {
         sourceFile.delete();
-
     }
 }
