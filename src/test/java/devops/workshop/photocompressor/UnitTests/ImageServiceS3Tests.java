@@ -58,7 +58,7 @@ public class ImageServiceS3Tests {
         MockitoAnnotations.openMocks(this);
         ReflectionTestUtils.setField(imageServiceS3, // inject into this object
                 "resizedImageFolder", // assign to this field
-                System.getProperty("user.dir") + "src/test/resources/resizedImages"); // object to be injected
+                System.getProperty("user.dir") + "src/test/resources/resizedimages"); // object to be injected
     }
 
     @Test
