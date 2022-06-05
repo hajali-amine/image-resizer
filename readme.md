@@ -55,7 +55,11 @@ public void uploadFileFromMultipartFileTestCase() throws IOException {
 
 ### Integration Tests
 
-TODO: Add this
+In this part, we're going to test the interfaces, meaning everything related to the communication with S3 buckets.
+
+For that, we are going to test the retrieval and upload on a _test bucket_, which is just another bucket not related to the one we use in the application.
+
+You can find the tests [here](./src/test/java/devops/workshop/photocompressor/IntegrationTests/).
 
 ### E2E Tests
 
@@ -115,13 +119,21 @@ And we're all set.
 
 1. __Tests:__ Run Unit Tests and Integration Tests.
 1. __Build and Release:__ Build the Docker Image and push it to Dockerhub.
-1. __E2E Tests:__ To add.
+1. __E2E Tests:__ Run the python script.
 1. __Deploy:__
     1. SSH into the EC2 instance.
     1. Kill the docker container that's currently running and remove it.
     1. Pull the new image.
     1. Run the new image.
 
+<p align="center">
+    <img src="assets/cicd.png" alt="cicd pipeline">
+</p>
+
 ### CI Pipeline on Pull Request in any branch
 
-To add.
+A simple pipeline to run the __Unit Tests__ and __Integration Tests__.
+
+--------
+
+### Thank you for your time and don't forget to leave a :star2:
