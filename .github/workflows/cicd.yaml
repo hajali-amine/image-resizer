@@ -62,6 +62,7 @@ jobs:
           ssh -o "StrictHostKeyChecking=no" -i "private_key.pem" ${{ secrets.EC2_USERNAME  }}@${{ secrets.EC2_HOSTNAME  }} ' 
           whoami
           sudo docker kill resizer
+          sudo docker container rm resizer
           sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/image-resizer:${{ github.sha }}
           sudo docker run -d -e "AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}" -e "AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }}" -p 8080:8080 --name resizer ${{ secrets.DOCKER_HUB_USERNAME }}/image-resizer:${{ github.sha }}
           '
