@@ -59,7 +59,27 @@ TODO: Add this
 
 ### E2E Tests
 
-TODO: Add this
+As for the E2E test, since we only have a backend project, I opted for a [__Python script__](./e2e/) that tests the main workflow.
+
+The script is the following:
+
+1. Send `POST /uploadImage` with our test image.
+1. Check that the response status is 200 and response message is clear.
+1. Send `GET /getImage/testImage`.
+1. Check that the image is retrieved correctly and that it had been resized.
+1. Remove image from S3 to clear everything up.
+
+To clear everything up, we use this method.
+
+``` python
+# Remove object from S3
+def clean_up(s3):
+    os.remove(TEMP_FILEPATH)
+    b = boto3.Bucket(s3, BUCKET_NAME)
+    k = boto3.Key(b)
+    k.key = FILENAME
+    b.delete_key(k)
+```
 
 ## CI/CD Pipeline
 
