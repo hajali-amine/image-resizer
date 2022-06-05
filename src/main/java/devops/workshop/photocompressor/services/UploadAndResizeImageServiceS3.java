@@ -9,11 +9,11 @@ import java.io.IOException;
 
 @Service
 public class UploadAndResizeImageServiceS3 {
-    private IFileUploadService IFileUploadServiceS3;
+    private IFileUploadService fileUploadService;
     private IImageService imageServiceS3;
 
-    public UploadAndResizeImageServiceS3(IFileUploadService IFileUploadServiceS3, IImageService imageServiceS3) {
-        this.IFileUploadServiceS3 = IFileUploadServiceS3;
+    public UploadAndResizeImageServiceS3(IFileUploadService fileUploadService, IImageService imageServiceS3) {
+        this.fileUploadService = fileUploadService;
         this.imageServiceS3 = imageServiceS3;
     }
 
@@ -22,7 +22,7 @@ public class UploadAndResizeImageServiceS3 {
             return "wtf bro";
         }
 
-        File file = IFileUploadServiceS3.upload(imageFile);
+        File file = fileUploadService.upload(imageFile);
         if(file == null) {
             return "Upload failed";
 
@@ -31,7 +31,9 @@ public class UploadAndResizeImageServiceS3 {
 
         File newFile = imageServiceS3.uploadImage(file.getName(), resizeResult);
 
-        IFileUploadServiceS3.clean(newFile);
+        imageServiceS3.clean(newFile);
+
+        fileUploadService.clean(file);
 
         return "jawek behi";
     }

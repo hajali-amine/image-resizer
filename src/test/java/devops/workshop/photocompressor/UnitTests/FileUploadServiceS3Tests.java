@@ -3,7 +3,6 @@ package devops.workshop.photocompressor.UnitTests;
 import devops.workshop.photocompressor.services.FileUploadServiceS3;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.event.annotation.AfterTestClass;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,7 +22,7 @@ import java.nio.file.Paths;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = FileUploadServiceS3.class)
-@TestPropertySource(properties = "image.source.folder=src/test/resources/images")
+@TestPropertySource(properties = {"image.source.folder=src/test/resources/images"})
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class FileUploadServiceS3Tests {
     @Autowired
@@ -34,12 +32,12 @@ public class FileUploadServiceS3Tests {
 
     private String imagePath = "src/test/resources/images/";
 
-    private String uploadedFileName = "test_image.png";
+    private String uploadedFileName = "test_image.jpg";
 
     public MultipartFile getMultipartFile() {
         String name = uploadedFileName;
-        String originalFileName = "test_image.png";
-        String contentType = "image/png";
+        String originalFileName = "test_image.jpg";
+        String contentType = "image/jpg";
         byte[] content = null;
         try {
             content = Files.readAllBytes(Paths.get(resourcePath + "/" + originalFileName));

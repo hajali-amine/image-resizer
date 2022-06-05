@@ -1,6 +1,7 @@
 package devops.workshop.photocompressor.services;
 
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.s3.AmazonS3;
 import devops.workshop.photocompressor.config.AwsConfig;
 import org.apache.commons.io.FilenameUtils;
 import org.imgscalr.Scalr;
@@ -25,6 +26,10 @@ public class ImageServiceS3 implements IImageService {
     @Value("${aws.s3.bucket.name}")
     private String s3BucketName;
 
+    public AmazonS3 getS3() {
+        return  AwsConfig.s3;
+    }
+
     @Override
     public BufferedImage resizeImage(File sourceFile) throws IOException {
         // Read image as a buffered image
@@ -44,7 +49,7 @@ public class ImageServiceS3 implements IImageService {
         ImageIO.write(resizedImage, "jpg", newImageFile);
         resizedImage.flush();
         try {
-            AwsConfig.s3.putObject(s3BucketName, newFileName, newImageFile);
+            getS3().putObject(s3BucketName, newFileName, newImageFile);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);

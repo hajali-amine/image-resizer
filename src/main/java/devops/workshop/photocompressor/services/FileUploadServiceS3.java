@@ -19,6 +19,7 @@ public class FileUploadServiceS3 implements IFileUploadService {
     public File upload(MultipartFile imageFile) throws IOException {
         Path path = Paths.get(imageFolder, imageFile.getOriginalFilename());
         Files.write(path, imageFile.getBytes());
+        System.out.println(imageFolder);
         return path.toFile();
     }
 
