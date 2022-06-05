@@ -136,4 +136,4 @@ A simple pipeline to run the __Unit Tests__ and __Integration Tests__.
 
 --------
 
-### Thank you for your time and don't forget to leave a :star2:
+### Thank you for your time and don't forget to leave a :star:
