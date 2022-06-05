@@ -57,10 +57,12 @@ jobs:
       - uses: actions/setup-python@v3
         with:
           python-version: '3.x'
-      - run: |
+      - name: Run E2E test
+        run: |
           python -m pip install -r e2e/requirements.txt
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/image-resizer:${{ github.sha }}
           docker run -d -e "AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}" -e "AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }}" -p 8080:8080 --name resizer ${{ secrets.DOCKER_HUB_USERNAME }}/image-resizer:${{ github.sha }}
+          sleep 10
           python e2e/e2e.py
 
   # The EC2 instance is ready and has docker installed
