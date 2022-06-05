@@ -20,15 +20,15 @@ RUN mvn clean install -Dmaven.test.skip=true
 FROM adoptopenjdk/openjdk11:jre-11.0.9_11-alpine
 # set deployment directory
 WORKDIR /imagecompressor
+# make the necessary directories for the project
+RUN mkdir images resizedimages retrieve
+# copy over the built artifact from the maven image
+COPY --from=build /imagecompressor/build/target/image.compressor.jar ./target/image.compressor.jar
 # expose 8080 port
 EXPOSE 8080
 # take aws access key as env variable
 ENV AWS_ACCESS_KEY=key
 # take aws secret key as env variable
 ENV AWS_SECRET_KEY=secret
-# copy over the built artifact from the maven image
-COPY --from=build /imagecompressor/build/target/image.compressor.jar ./target/image.compressor.jar
-# make the necessary directories for the project
-RUN mkdir images resizedimages retrieve
 # run jar
 CMD java -jar ./target/image.compressor.jar
