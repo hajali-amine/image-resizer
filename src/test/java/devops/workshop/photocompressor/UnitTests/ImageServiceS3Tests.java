@@ -58,7 +58,7 @@ public class ImageServiceS3Tests {
         MockitoAnnotations.openMocks(this);
         ReflectionTestUtils.setField(imageServiceS3, // inject into this object
                 "resizedImageFolder", // assign to this field
-                System.getProperty("user.dir") + "src/test/resources/resizedimages"); // object to be injected
+                "src/test/resources/resizedimages"); // object to be injected
     }
 
     @Test
@@ -71,7 +71,7 @@ public class ImageServiceS3Tests {
         Mockito.when(imageServiceS3.uploadImage(uploadedFileName, bufferedImage)).thenCallRealMethod(); // Call real method
 
         // When running uploadImage
-        File file = imageServiceS3.uploadImage(resourcePath + "/" + uploadedFileName, bufferedImage);
+        File file = imageServiceS3.uploadImage(uploadedFileName, bufferedImage);
 
         // Expect an image in the images folder
         byte[] fileResized = Files.readAllBytes(Paths.get(imagePath + uploadedFileName));
