@@ -59,11 +59,32 @@ public class ImageServiceS3Tests {
         ReflectionTestUtils.setField(imageServiceS3, // inject into this object
                 "resizedImageFolder", // assign to this field
                 "src/test/resources/resizedimages"); // object to be injected
+        ReflectionTestUtils.setField(imageServiceS3,
+                "imageSize",
+                400);
     }
 
     @Test
     @Order(1)
-    public void uploadFileFromMultipartFileTestCase() throws IOException {
+    public void resizeImageTestCase() throws IOException {
+        // Given an image file
+        File image = Paths.get(resourcePath + "/test_image.jpg").toFile();
+        Mockito.when(imageServiceS3.resizeImage(image)).thenCallRealMethod();
+
+        // When running uploadImage
+        BufferedImage resizedImage = imageServiceS3.resizeImage(image);
+
+        // Expect an image in the images folder
+        BufferedImage originalImage = ImageIO.read(Paths.get(resourcePath + "/test_image.jpg").toFile());
+        Assert.assertTrue(
+                "The image uploaded is Null.",
+                resizedImage.getHeight() * resizedImage.getWidth() < originalImage.getHeight() * originalImage.getWidth()
+        );
+    }
+
+    @Test
+    @Order(2)
+    public void uploadFileToS3TestCase() throws IOException {
         Mockito.when(s3.putObject(anyString(), anyString(), anyString())).thenReturn(new PutObjectResult()); // Mock call to S3
         Mockito.when(imageServiceS3.getS3()).thenReturn(s3);
         // Given a Buffered Image
@@ -83,7 +104,7 @@ public class ImageServiceS3Tests {
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     public void cleanUploadedFileTestCase() throws IOException {
         // Given the file uploaded by the previous test
         File file = Paths.get(imagePath + uploadedFileName).toFile();
@@ -92,7 +113,7 @@ public class ImageServiceS3Tests {
         // When running clean
         imageServiceS3.clean(file);
 
-        // Expect an image in the images folder
+        // Expect no image in the folder
         Assert.assertThrows(
                 "The image uploaded was not deleted.",
                 NoSuchFileException.class,

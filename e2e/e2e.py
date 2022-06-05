@@ -42,14 +42,17 @@ def clean_up(s3):
     b.delete_key(k)
 
 if __name__ == "__main__":
+    print("Set up connection to S...")
     s3_connection = set_up()
 
+    print("Send image...")
     # Call POST /uploadImage
     response = add_image_to_s3()
     # Assert that all good
     assert response.status_code == 200
     assert response.content == b'jawek behi'
 
+    print("Retrieve image...")
     response = get_image_from_s3()
     # Assert that all good
     assert response.status_code == 200
@@ -66,5 +69,8 @@ if __name__ == "__main__":
     # Assert that the image was resized
     assert len(realImage) > len(imageResponse)
 
+    print("Clean up...")
     # Remove temp file and S3 object
     clean_up(s3=s3_connection)
+
+    print("All done!")

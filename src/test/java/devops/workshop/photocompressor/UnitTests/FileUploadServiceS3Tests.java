@@ -73,7 +73,7 @@ public class FileUploadServiceS3Tests {
         // When running clean
         fileUploadServiceS3.clean(file);
 
-        // Expect an image in the images folder
+        // Expect no image in the folder
         Assert.assertThrows(
                 "The image uploaded was not deleted.",
                 NoSuchFileException.class,
