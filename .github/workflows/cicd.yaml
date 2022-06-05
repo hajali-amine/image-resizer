@@ -57,13 +57,13 @@ jobs:
           which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
           mkdir -p ~/.ssh
           eval $(ssh-agent -s)
-          echo "${{ secrets.KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
           echo "${{ secrets.AWS_EC2_PRIVATE_KEY  }}" > private_key.pem
           chmod 400 private_key.pem
-          ssh -i "private_key.pem" ${{ secrets.EC2_USERNAME  }}@${{ secrets.EC2_HOSTNAME  }} ' 
+          ssh -o "StrictHostKeyChecking=no" -i "private_key.pem" ${{ secrets.EC2_USERNAME  }}@${{ secrets.EC2_HOSTNAME  }} ' 
           whoami
+          sudo docker kill resizer
           sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/image-resizer:${{ github.sha }}
-          sudo docker run -e "AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}" -e "AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }}" -p 8080:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/image-resizer:${{ github.sha }}
+          sudo docker run -d -e "AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}" -e "AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }}" -p 8080:8080 --name resizer ${{ secrets.DOCKER_HUB_USERNAME }}/image-resizer:${{ github.sha }}
           '
 #        uses: appleboy/ssh-action@master
 #        env:
