@@ -61,7 +61,7 @@ jobs:
           chmod 400 private_key.pem
           ssh -i "private_key.pem" ${{ secrets.EC2_USERNAME  }}@${{ secrets.EC2_HOSTNAME  }} ; whoami
           sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/image-resizer:${{ github.sha }}
-          sudo docker run -e "AWS_ACCESS_KEY=${{ AWS_ACCESS_KEY }}" -e "AWS_SECRET_KEY=${{ AWS_SECRET_KEY }}" -p 8080:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/image-resizer:${{ github.sha }}
+          sudo docker run -e "AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}" -e "AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }}" -p 8080:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/image-resizer:${{ github.sha }}
 #        uses: appleboy/ssh-action@master
 #        env:
 #          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
