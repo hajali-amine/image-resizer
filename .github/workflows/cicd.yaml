@@ -45,6 +45,7 @@ jobs:
 #          file: ./Dockerfile
 #          push: true
 #          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/image-resizer:${{ github.sha }}
+  #          echo "${{ secrets.KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
 
   # The EC2 instance is ready and has docker installed
   deploy:
@@ -57,7 +58,6 @@ jobs:
           which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
           mkdir -p ~/.ssh
           eval $(ssh-agent -s)
-#          echo "${{ secrets.KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
           echo "${{ secrets.AWS_EC2_PRIVATE_KEY  }}" > private_key.pem
           chmod 400 private_key.pem
           ssh -i "private_key.pem" ${{ secrets.EC2_USERNAME  }}@${{ secrets.EC2_HOSTNAME  }} ; whoami
