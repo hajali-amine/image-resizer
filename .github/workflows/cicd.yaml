@@ -1,4 +1,4 @@
-name: Image Resizer CI/CD Pipeline
+name: Image Resizer CI/CD Pipeline.
 
 on:
   push:
