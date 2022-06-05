@@ -134,6 +134,10 @@ And we're all set.
 
 A simple pipeline to run the __Unit Tests__ and __Integration Tests__.
 
+<p align="center">
+    <img src="assets/pr.png" alt="pr pipeline">
+</p>
+
 --------
 
 ### Thank you for your time and don't forget to leave a :star2:
