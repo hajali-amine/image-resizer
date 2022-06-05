@@ -28,6 +28,7 @@ ENV AWS_ACCESS_KEY=key
 ENV AWS_SECRET_KEY=secret
 # copy over the built artifact from the maven image
 COPY --from=build /imagecompressor/build/target/image.compressor.jar ./target/image.compressor.jar
+# make the necessary directories for the project
 RUN mkdir images resizedimages retrieve
 # run jar
 CMD java -jar ./target/image.compressor.jar

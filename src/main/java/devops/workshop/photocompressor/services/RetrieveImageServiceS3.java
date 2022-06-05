@@ -1,6 +1,7 @@
 package devops.workshop.photocompressor.services;
 
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import devops.workshop.photocompressor.config.AwsConfig;
@@ -21,10 +22,14 @@ public class RetrieveImageServiceS3 implements IRetrieveImageService {
     @Value("${image.retrieve.folder}")
     private String retrieveFolder;
 
+    public AmazonS3 getS3() {
+        return  AwsConfig.s3;
+    }
+
     @Override
     public byte[] retrieveImage(String image) throws IOException {
         try {
-            S3Object o = AwsConfig.s3.getObject(s3BucketName, image);
+            S3Object o = getS3().getObject(s3BucketName, image);
             S3ObjectInputStream s3is = o.getObjectContent();
             Path path = Paths.get(retrieveFolder, image);
             FileOutputStream fos = new FileOutputStream(path.toFile());
