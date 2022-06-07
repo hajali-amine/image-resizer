@@ -42,7 +42,7 @@ def clean_up(s3):
     b.delete_key(k)
 
 if __name__ == "__main__":
-    print("Set up connection to S...")
+    print("Set up connection to S3...")
     s3_connection = set_up()
 
     print("Send image...")

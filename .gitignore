@@ -33,3 +33,9 @@ build/
 .vscode/
 
 venv
+infra/keys/key
+infra/keys/key.pub
+infra/terraform.tfvars
+**/.terraform/*
+*.tfstate
+*.tfstate.*

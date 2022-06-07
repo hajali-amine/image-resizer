@@ -108,7 +108,7 @@ First, we need to prepare the __EC2 instance__.
 After provisioning the instance, we will SSH into it and prepare our __RSA keys__ via the following steps.
 
 1. run `ssh-keygen -t rsa -m PEM`;
-1. run `cat key.pub >> authorized_keys`;
+1. run `cat key.pub >> ~/.ssh/authorized_keys`;
 1. run `cat key`, which is our private key and we copied it to the GitHub secrets.
 
 We will also install Docker in it.
@@ -137,7 +137,6 @@ A simple pipeline to run the __Unit Tests__ and __Integration Tests__.
 <p align="center">
     <img src="assets/pr.png" alt="pr pipeline">
 </p>
-
 
 --------
 
