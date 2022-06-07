@@ -111,9 +111,7 @@ For that, you can find in the [__infra__](./infra/) directory the __Terraform co
 
 For all of this to work, we need to do the following.
 
-We need to prepare our __RSA keys__ via the following steps.
-
-1. Run `ssh-keygen -t rsa -m PEM` and put them in `./infra/keys` directories;
+1. Prepare our __RSA keys__ by `ssh-keygen -t rsa -m PEM` and put them in `./infra/keys` directories;
 1. Add the values in `terraform.tfvars` file;
 1. Go to [_terraform.io_](https://www.terraform.io/) and prepare the workspace;
 1. Generate an API access token in the Terraform cloud.
