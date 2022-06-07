@@ -80,15 +80,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Set-up terraform 
+      - name: Set-up terraform and login
         uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
       - name: Provisioning
         working-directory: ./infra
         run: |
-          ls
           echo "${{ secrets.AWS_EC2_PUBLIC_KEY }}" >> ./keys/key.pub
           echo '${{ secrets.TF_TFVARS }}' >> ./terraform.tfvars
-          terraform init -input=false && terraform plan -input=false -compact-warnings -out=plan.file && terraform apply -input=false -compact-warnings plan.file
+          terraform init && terraform plan && terraform apply -auto-approve
 
   # The EC2 instance is ready and has docker installed
   # deploy:
