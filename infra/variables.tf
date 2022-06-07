@@ -9,3 +9,7 @@ variable "aws-access-key" {
 variable "aws-secret-key" {
   description = "This is the my AWS' account secret key"
 }
+
+variable "ec2-public-key" {
+  description = "EC2 instance's public key"
+}

@@ -41,7 +41,7 @@ resource "aws_security_group" "image-resizer" {
 # Define key pairs for the instance
 resource "aws_key_pair" "deployer" {
   key_name   = "hajali-ec2-keys"
-  public_key = file("~/image-resizer/infra/keys/key.pub")
+  public_key = var.ec2-public-key
 }
 
 # Define EC2 provision
