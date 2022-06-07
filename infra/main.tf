@@ -1,3 +1,13 @@
+terraform {
+  cloud {
+    organization = "hajali-test"
+
+    workspaces {
+      name = "tf-devops-project"
+    }
+  }
+}
+
 provider "aws" {
    region     = var.aws-region
    access_key = var.aws-access-key
