@@ -88,7 +88,7 @@ jobs:
           ls
           echo "${{ secrets.AWS_EC2_PUBLIC_KEY }}" >> ./keys/key.pub
           echo '${{ secrets.TF_TFVARS }}' >> ./terraform.tfvars
-          terraform init -input=false && terraform plan -input=false -compact-warnings -out=plan.file && terraform apply -input=false -compact-warnings plan.file
+          terraform plan -input=false -compact-warnings -out=plan.file && terraform apply -input=false -compact-warnings plan.file
 
   # The EC2 instance is ready and has docker installed
   # deploy:
