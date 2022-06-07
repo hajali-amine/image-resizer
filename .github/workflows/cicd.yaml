@@ -78,10 +78,12 @@ jobs:
     # needs:
     #   - e2e-test
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Set-up terraform 
         uses: hashicorp/setup-terraform@v2
       - name: Provisioning
-        # working-directory: ./infra
+        working-directory: ./infra
         run: |
           ls
           echo "${{ secrets.AWS_EC2_PUBLIC_KEY }}" >> ./keys/key.pub
