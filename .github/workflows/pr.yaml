@@ -5,6 +5,7 @@ on:
     branches: [ main ]
     paths-ignore:
       - '**/readme.md'
+      - '**/assets/*'
 
 jobs:
   test:
