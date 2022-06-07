@@ -96,6 +96,7 @@ As you can see in the Dockerfile, I opted for a __multi-stage build__.
     1. Install __maven dependencies__;
     2. Copy `./src`
     3. Build `.jar` file.
+    
 - _Stage two:_
     1. Make the directories necessary for the project;
     1. Copy the `.jar` file from _Stage one_;

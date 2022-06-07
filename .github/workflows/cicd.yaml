@@ -79,7 +79,8 @@ jobs:
         uses: hashicorp/setup-terraform@v2
       - name: Provisioning
         run: |
-          cd ./infra/
+          pwd
+          cd infra/
           echo "${{ secrets.AWS_EC2_PUBLIC_KEY }}" >> ./keys/key.pub
           echo "${{ secrets.TF_TFVARS }}" >> ./terraform.tfvars
           terraform init -input=false && terraform plan -input=false -compact-warnings -out=plan.file && terraform apply -input=false -compact-warnings plan.file
