@@ -39,3 +39,4 @@ infra/terraform.tfvars
 **/.terraform/*
 *.tfstate
 *.tfstate.*
+*.lock.hcl
