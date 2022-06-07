@@ -96,24 +96,37 @@ As you can see in the Dockerfile, I opted for a __multi-stage build__.
     1. Install __maven dependencies__;
     2. Copy `./src`
     3. Build `.jar` file.
-    
+
 - _Stage two:_
     1. Make the directories necessary for the project;
     1. Copy the `.jar` file from _Stage one_;
     1. Expose port and annouce env variables;
     1. Run the `.jar` file.
 
-### Initial Deployment
+### Preparing the Infrastructure using IAC
 
 First, we need to prepare the __EC2 instance__.
 
-After provisioning the instance, we will SSH into it and prepare our __RSA keys__ via the following steps.
+For that, you can find in the [__infra__](./infra/) directory the __Terraform code__ to provision the EC2 and prepare the Security Groups, and also install __Docker__ in the instance.
 
-1. run `ssh-keygen -t rsa -m PEM`;
-1. run `cat key.pub >> ~/.ssh/authorized_keys`;
-1. run `cat key`, which is our private key and we copied it to the GitHub secrets.
+For all of this to work, we need to do the following.
 
-We will also install Docker in it.
+We need to prepare our __RSA keys__ via the following steps.
+
+1. Run `ssh-keygen -t rsa -m PEM` and put them in `./infra/keys` directories;
+1. Add the values in `terraform.tfvars` file;
+1. Go to [_terraform.io_](https://www.terraform.io/) and prepare the workspace;
+1. Generate an API access token in the Terraform cloud.
+1. Add the private key, `terraform.tfvars`'s content and the API access token to GitHub secrets. 
+
+Here's and example of `terraform.tfvars`;
+
+``` HCL
+aws-region = "AWS region"
+aws-access-key = "AWS access key"
+aws-secret-key = "AWS secret key"
+ec2-public-key = "The public key generated"
+```
 
 And we're all set.
 
@@ -122,6 +135,7 @@ And we're all set.
 1. __Tests:__ Run Unit Tests and Integration Tests.
 1. __Build and Release:__ Build the Docker Image and push it to Dockerhub.
 1. __E2E Tests:__ Run the python script.
+1. __Run the IAC__: Apply the changes in the Terraform code.
 1. __Deploy:__
     1. SSH into the EC2 instance.
     1. Kill the docker container that's currently running and remove it.

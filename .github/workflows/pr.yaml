@@ -3,6 +3,8 @@ name: Image Resizer PR Pipeline.
 on:
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - '**/readme.md'
 
 jobs:
   test:
