@@ -32,7 +32,15 @@ build/
 ### VS Code ###
 .vscode/
 
+### Everything MVN ###
+.mvn
+mvnw
+mvnw.cmd
+
+### Python virtual environment ###
 venv
+
+### IAC sensitive data ###
 infra/keys/key
 infra/keys/key.pub
 infra/terraform.tfvars

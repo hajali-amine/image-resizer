@@ -16,6 +16,16 @@ Through `GET /getImage/{image}`, `image` being the name of the image that you se
 
 The project requires two environment variables; *AWS_ACCESS_KEY* and *AWS_SECRET_KEY* to be able to connect to the S3 bucket.
 
+The project contains:
+
+- `.github`: pipelines.
+- `assets`: assets necessary for the README.
+- `e2e`: E2E test.
+- `infra`: simple IAC using Terraform.
+- `src`: SpringBoot code and Tests.
+- `images`, `resizedimages` and `retrive`: directories that the project require.
+- `pom.xml`: the XML file that contains information about the project and configuration details used by Maven to build the project.
+
 ## Tests
 
 ### Unit Tests
