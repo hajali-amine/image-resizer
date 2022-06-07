@@ -72,6 +72,9 @@ jobs:
 
   iac-provisioning:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./infra
     # needs:
     #   - e2e-test
     steps:
